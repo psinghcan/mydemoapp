@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+<ui:composition template="/templates/layout.xhtml">
+  <ui:define name="content">
+
+    <h:form prependId="false" id="memoFeesDataForm" onkeypress="if (event.keyCode == 13) {return false; }">
+
+        <p:dataTable id="memoFeesTable" value="#{memoFeesBean.memoFeesList}" var="memoFees" resizableColumns="true" paginator="true"
+                paginatorTemplate=" {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,25,50" rows="10" draggableColumns="true"
+                paginatorPosition="bottom" widgetVar="memoFeesTable" emptyMessage="#{messages.label_no_records_found}"
+                reflow="true">
+        
+          <f:facet name="header" >
+
+              <p:commandButton value="#{messages.create_new_memoFees}" icon="ui-icon-plusthick"
+                      action="/pages/memoFees/memoFeesCreate?faces-redirect=true"
+                      rendered="#{memoFeesBean.isPermitted('memoFees:create')}" style="float:left" />
+              
+              <p:commandButton id="toggler" type="button" value="#{messages.table_select_columns}" icon="ui-icon-calculator" />
+              <p:columnToggler datasource="memoFeesTable" trigger="toggler" />
+          </f:facet>
+          
+          <p:column headerText="#{messages.field_label_memoFees_invoiceYear}" sortBy="#{memoFees.invoiceYear}" filterBy="#{memoFees.invoiceYear}">
+            <f:facet name="filter">
+                <p:inputText id="invoiceYearFilter"
+                        onkeypress="if (event.keyCode == 13) {PF('memoFeesTable').filter(); updateInvoiceYearFilter(); return false; }" >
+                    <p:remoteCommand name="updateInvoiceYearFilter" update="memoFeesTable:invoiceYearFilter" />
+                    <f:convertNumber integerOnly="true" />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{memoFees.invoiceYear}" ><f:convertNumber /></h:outputText>
+          </p:column>
+
+          <p:column headerText="#{messages.field_label_memoFees_invoiceMonth}" sortBy="#{memoFees.invoiceMonth}" filterBy="#{memoFees.invoiceMonth}">
+            <f:facet name="filter">
+                <p:inputText id="invoiceMonthFilter"
+                        onkeypress="if (event.keyCode == 13) {PF('memoFeesTable').filter(); updateInvoiceMonthFilter(); return false; }" >
+                    <p:remoteCommand name="updateInvoiceMonthFilter" update="memoFeesTable:invoiceMonthFilter" />
+                    <f:convertNumber integerOnly="true" />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{memoFees.invoiceMonth}" ><f:convertNumber /></h:outputText>
+          </p:column>
+
+          <p:column headerText="#{messages.field_label_memoFees_creationDate}" sortBy="#{memoFees.creationDate}" filterBy="#{memoFees.creationDate}">
+            <f:facet name="filter">
+                <p:inputText id="creationDateFilter"
+                        onkeyup="if (event.keyCode == 13) {PF('memoFeesTable').filter(); updateCreationDateFilter(); return false;}" >
+                    <p:remoteCommand name="updateCreationDateFilter" update="memoFeesTable:creationDateFilter" />
+                    <f:convertDateTime />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{memoFees.creationDate}"><f:convertDateTime /></h:outputText>
+          </p:column>
+
+          <p:column headerText="#{messages.field_label_memoFees_invoiceDate}" sortBy="#{memoFees.invoiceDate}" filterBy="#{memoFees.invoiceDate}">
+            <f:facet name="filter">
+                <p:inputText id="invoiceDateFilter"
+                        onkeyup="if (event.keyCode == 13) {PF('memoFeesTable').filter(); updateInvoiceDateFilter(); return false;}" >
+                    <p:remoteCommand name="updateInvoiceDateFilter" update="memoFeesTable:invoiceDateFilter" />
+                    <f:convertDateTime />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{memoFees.invoiceDate}"><f:convertDateTime /></h:outputText>
+          </p:column>
+
+          <p:column  headerText="#{messages.field_label_memoFees_franchiseNumber}" sortBy="#{memoFees.franchiseNumber}" filterBy="#{memoFees.franchiseNumber}">
+            <f:facet name="filter">
+                <p:inputText id="franchiseNumberFilter"
+                        onkeypress="if (event.keyCode == 13) {PF('memoFeesTable').filter(); updateFranchiseNumberFilter(); return false; }" >
+                    <p:remoteCommand name="updateFranchiseNumberFilter" update="memoFeesTable:franchiseNumberFilter" />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{memoFees.franchiseNumber}" />
+          </p:column>
+
+          <p:column styleClass="action-column" headerText="#{messages.table_actions_column}" width="115" exportable="false">
+            
+            <p:commandButton action="#{'/pages/memoFees/memoFeesView?faces-redirect=true&amp;id='.concat(memoFees.id)}"
+                icon="ui-icon-zoomin"
+                title="#{messages.label_view}" />
+            
+            <p:commandButton action="#{'/pages/memoFees/memoFeesEdit?faces-redirect=true&amp;id='.concat(memoFees.id)}"
+                icon="ui-icon-pencil"
+                resetValues="true"
+                rendered="#{memoFeesBean.isPermitted(memoFees, 'memoFees:update')}"
+                title="#{messages.label_edit}" />
+                
+            <p:commandButton icon="ui-icon-close" rendered="#{memoFeesBean.isPermitted(memoFees, 'memoFees:delete')}"
+                oncomplete="PF('deleteMemoFeesDialogWidget').show()"
+                title="#{messages.label_delete}" >
+                <f:setPropertyActionListener value="#{memoFees}"
+                    target="#{memoFeesBean.memoFees}" />
+            </p:commandButton>
+    
+          </p:column>
+          
+        </p:dataTable>
+        
+    </h:form>
+
+    <p:confirmDialog id="deleteMemoFeesDialog" widgetVar="deleteMemoFeesDialogWidget"
+        rendered="#{memoFeesBean.isPermitted(memoFeesBean.memoFees, 'memoFees:delete')}" header="#{messages.label_confirm_deletion}"
+        severity="alarm">
+        <f:facet name="message"><h:outputText value="#{messages.label_delete_record}" escape="false"/></f:facet>
+        <p:outputPanel>
+          <h:form>
+            <div style="text-align: center; margin:10px">
+              <p:commandButton value="#{messages.label_yes}" action="#{memoFeesBean.delete}" update=":memoFeesDataForm :growlForm:growl" oncomplete="PF('deleteMemoFeesDialogWidget').hide()" />
+              <p:commandButton value="#{messages.label_no}" onclick="PF('deleteMemoFeesDialogWidget').hide()" type="button" />
+            </div>
+          </h:form>
+        </p:outputPanel>
+    </p:confirmDialog>
+    
+  </ui:define>
+</ui:composition>
+</html>

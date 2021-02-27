@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <p:outputPanel styleClass="ui-fluid" rendered="#{not divisionBean.isPermitted(divisionBean.division, 'division:read')}">
+        <h:outputText value="#{messages.access_denied}" />
+    </p:outputPanel>
+    
+    <h:panelGrid columns="2" styleClass="dialog" columnClasses="col1,col2" rendered="#{divisionBean.isPermitted(divisionBean.division, 'division:read')}">
+        
+        <h:outputText value="#{messages.field_label_division_division}:" />
+        <h:outputText value="#{divisionBean.division.division}" />
+
+        <h:outputText value="#{messages.field_label_division_divisionAbbrev}:" />
+        <h:outputText value="#{divisionBean.division.divisionAbbrev}" />
+
+        <h:outputText value="#{messages.field_label_division_presidentId}:" />
+        <h:outputText value="#{divisionBean.division.presidentId}" />
+
+        <h:outputText value="#{messages.field_label_division_administratorId}:" />
+        <h:outputText value="#{divisionBean.division.administratorId}" />
+
+        <h:outputText value="#{messages.field_label_division_startDate}:" />
+        <h:outputText value="#{divisionBean.division.startDate}" ><f:convertDateTime /></h:outputText>
+
+        <h:outputText value="#{messages.field_label_division_endDate}:" />
+        <h:outputText value="#{divisionBean.division.endDate}" ><f:convertDateTime /></h:outputText>
+
+        <h:outputText value="#{messages.field_label_division_companyName}:" />
+        <h:outputText value="#{divisionBean.division.companyName}" />
+
+    </h:panelGrid>
+</html>

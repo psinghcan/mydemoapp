@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+        <p:outputPanel styleClass="ui-fluid">
+
+            <p:panelGrid columns="3" columnClasses="ui-grid-col-4,ui-grid-col-6,ui-grid-col-2" layout="grid" style="max-width:400px">
+            
+                <h:outputLabel value="#{messages.field_label_division_division}:" for="divisionEditInput" />
+                <p:inputText value="#{divisionBean.division.division}" id="divisionEditInput" 
+                    label="#{messages.field_label_division_division}" />
+                <p:message for="divisionEditInput" display="icon" />
+
+                <h:outputLabel value="#{messages.field_label_division_divisionAbbrev}:" for="divisionAbbrevEditInput" />
+                <p:inputText value="#{divisionBean.division.divisionAbbrev}" id="divisionAbbrevEditInput" 
+                    label="#{messages.field_label_division_divisionAbbrev}" />
+                <p:message for="divisionAbbrevEditInput" display="icon" />
+
+                <h:outputLabel value="#{messages.field_label_division_presidentId}:" for="presidentIdEditInput" />
+                <p:inputText value="#{divisionBean.division.presidentId}" id="presidentIdEditInput" 
+                    label="#{messages.field_label_division_presidentId}" />
+                <p:message for="presidentIdEditInput" display="icon" />
+
+                <h:outputLabel value="#{messages.field_label_division_administratorId}:" for="administratorIdEditInput" />
+                <p:inputText value="#{divisionBean.division.administratorId}" id="administratorIdEditInput" 
+                    label="#{messages.field_label_division_administratorId}" />
+                <p:message for="administratorIdEditInput" display="icon" />
+
+                <h:outputLabel value="#{messages.field_label_division_startDate}:" for="startDateEditInput" />
+                <p:calendar id="startDateEditInput" navigator="true" value="#{divisionBean.division.startDate}" label="#{messages.field_label_division_startDate}" />
+                <p:message for="startDateEditInput" display="icon" />
+
+                <h:outputLabel value="#{messages.field_label_division_endDate}:" for="endDateEditInput" />
+                <p:calendar id="endDateEditInput" navigator="true" value="#{divisionBean.division.endDate}" label="#{messages.field_label_division_endDate}" />
+                <p:message for="endDateEditInput" display="icon" />
+
+                <h:outputLabel value="#{messages.field_label_division_companyName}:" for="companyNameEditInput" />
+                <p:inputText value="#{divisionBean.division.companyName}" id="companyNameEditInput" 
+                    label="#{messages.field_label_division_companyName}" />
+                <p:message for="companyNameEditInput" display="icon" />
+
+            </p:panelGrid>
+
+        </p:outputPanel>
+</html>

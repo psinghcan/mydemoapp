@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+<ui:composition template="/templates/layout.xhtml">
+  <ui:define name="content">
+
+    <h:form prependId="false" id="divisionDataForm" onkeypress="if (event.keyCode == 13) {return false; }">
+
+        <p:dataTable id="divisionTable" value="#{divisionBean.lazyModel}" var="division" resizableColumns="true" paginator="true"
+                paginatorTemplate=" {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,25,50" rows="10" draggableColumns="true" lazy="true"
+                paginatorPosition="bottom" widgetVar="divisionTable" emptyMessage="#{messages.label_no_records_found}"
+                reflow="true">
+        
+          <f:facet name="header" >
+
+              <p:commandButton value="#{messages.create_new_division}" icon="ui-icon-plusthick"
+                      action="/pages/division/divisionCreate?faces-redirect=true"
+                      rendered="#{divisionBean.isPermitted('division:create')}" style="float:left" />
+              
+              <p:commandButton id="toggler" type="button" value="#{messages.table_select_columns}" icon="ui-icon-calculator" />
+              <p:columnToggler datasource="divisionTable" trigger="toggler" />
+          </f:facet>
+          
+          <p:column  headerText="#{messages.field_label_division_division}" sortBy="#{division.division}" filterBy="#{division.division}">
+            <f:facet name="filter">
+                <p:inputText id="divisionFilter"
+                        onkeypress="if (event.keyCode == 13) {PF('divisionTable').filter(); updateDivisionFilter(); return false; }" >
+                    <p:remoteCommand name="updateDivisionFilter" update="divisionTable:divisionFilter" />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{division.division}" />
+          </p:column>
+
+          <p:column  headerText="#{messages.field_label_division_divisionAbbrev}" sortBy="#{division.divisionAbbrev}" filterBy="#{division.divisionAbbrev}">
+            <f:facet name="filter">
+                <p:inputText id="divisionAbbrevFilter"
+                        onkeypress="if (event.keyCode == 13) {PF('divisionTable').filter(); updateDivisionAbbrevFilter(); return false; }" >
+                    <p:remoteCommand name="updateDivisionAbbrevFilter" update="divisionTable:divisionAbbrevFilter" />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{division.divisionAbbrev}" />
+          </p:column>
+
+          <p:column  headerText="#{messages.field_label_division_presidentId}" sortBy="#{division.presidentId}" filterBy="#{division.presidentId}">
+            <f:facet name="filter">
+                <p:inputText id="presidentIdFilter"
+                        onkeypress="if (event.keyCode == 13) {PF('divisionTable').filter(); updatePresidentIdFilter(); return false; }" >
+                    <p:remoteCommand name="updatePresidentIdFilter" update="divisionTable:presidentIdFilter" />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{division.presidentId}" />
+          </p:column>
+
+          <p:column  headerText="#{messages.field_label_division_administratorId}" sortBy="#{division.administratorId}" filterBy="#{division.administratorId}">
+            <f:facet name="filter">
+                <p:inputText id="administratorIdFilter"
+                        onkeypress="if (event.keyCode == 13) {PF('divisionTable').filter(); updateAdministratorIdFilter(); return false; }" >
+                    <p:remoteCommand name="updateAdministratorIdFilter" update="divisionTable:administratorIdFilter" />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{division.administratorId}" />
+          </p:column>
+
+          <p:column headerText="#{messages.field_label_division_startDate}" sortBy="#{division.startDate}" filterBy="#{division.startDate}">
+            <f:facet name="filter">
+                <p:inputText id="startDateFilter"
+                        onkeyup="if (event.keyCode == 13) {PF('divisionTable').filter(); updateStartDateFilter(); return false;}" >
+                    <p:remoteCommand name="updateStartDateFilter" update="divisionTable:startDateFilter" />
+                    <f:convertDateTime />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{division.startDate}"><f:convertDateTime /></h:outputText>
+          </p:column>
+
+          <p:column headerText="#{messages.field_label_division_endDate}" sortBy="#{division.endDate}" filterBy="#{division.endDate}">
+            <f:facet name="filter">
+                <p:inputText id="endDateFilter"
+                        onkeyup="if (event.keyCode == 13) {PF('divisionTable').filter(); updateEndDateFilter(); return false;}" >
+                    <p:remoteCommand name="updateEndDateFilter" update="divisionTable:endDateFilter" />
+                    <f:convertDateTime />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{division.endDate}"><f:convertDateTime /></h:outputText>
+          </p:column>
+
+          <p:column  headerText="#{messages.field_label_division_companyName}" sortBy="#{division.companyName}" filterBy="#{division.companyName}">
+            <f:facet name="filter">
+                <p:inputText id="companyNameFilter"
+                        onkeypress="if (event.keyCode == 13) {PF('divisionTable').filter(); updateCompanyNameFilter(); return false; }" >
+                    <p:remoteCommand name="updateCompanyNameFilter" update="divisionTable:companyNameFilter" />
+                </p:inputText>
+            </f:facet>
+            <h:outputText value="#{division.companyName}" />
+          </p:column>
+
+          <p:column styleClass="action-column" headerText="#{messages.table_actions_column}" width="115" exportable="false">
+            
+            <p:commandButton action="#{'/pages/division/divisionView?faces-redirect=true&amp;id='.concat(division.id)}"
+                icon="ui-icon-zoomin"
+                title="#{messages.label_view}" />
+            
+            <p:commandButton action="#{'/pages/division/divisionEdit?faces-redirect=true&amp;id='.concat(division.id)}"
+                icon="ui-icon-pencil"
+                resetValues="true"
+                rendered="#{divisionBean.isPermitted(division, 'division:update')}"
+                title="#{messages.label_edit}" />
+                
+            <p:commandButton icon="ui-icon-close" rendered="#{divisionBean.isPermitted(division, 'division:delete')}"
+                oncomplete="PF('deleteDivisionDialogWidget').show()"
+                title="#{messages.label_delete}" >
+                <f:setPropertyActionListener value="#{division}"
+                    target="#{divisionBean.division}" />
+            </p:commandButton>
+    
+          </p:column>
+          
+        </p:dataTable>
+        
+    </h:form>
+
+    <p:confirmDialog id="deleteDivisionDialog" widgetVar="deleteDivisionDialogWidget"
+        rendered="#{divisionBean.isPermitted(divisionBean.division, 'division:delete')}" header="#{messages.label_confirm_deletion}"
+        severity="alarm">
+        <f:facet name="message"><h:outputText value="#{messages.label_delete_record}" escape="false"/></f:facet>
+        <p:outputPanel>
+          <h:form>
+            <div style="text-align: center; margin:10px">
+              <p:commandButton value="#{messages.label_yes}" action="#{divisionBean.delete}" update=":divisionDataForm :growlForm:growl" oncomplete="PF('deleteDivisionDialogWidget').hide()" />
+              <p:commandButton value="#{messages.label_no}" onclick="PF('deleteDivisionDialogWidget').hide()" type="button" />
+            </div>
+          </h:form>
+        </p:outputPanel>
+    </p:confirmDialog>
+    
+  </ui:define>
+</ui:composition>
+</html>
