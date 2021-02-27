@@ -1,5 +1,7 @@
 package org.application.domain;
 
+import org.application.domain.security.BaseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,29 +14,29 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
 @Entity(name="MemoFees")
-@Table(name="\"MEMOFEES\"")
+@Table(name="MEMOFEES")
 public class MemoFeesEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name="\"invoiceYear\"")
+    @Column(name="invoiceYear")
     @Digits(integer = 4, fraction = 0)
     private Integer invoiceYear;
 
-    @Column(name="\"invoiceMonth\"")
+    @Column(name="invoiceMonth")
     @Digits(integer = 4, fraction = 0)
     private Integer invoiceMonth;
 
-    @Column(name="\"creationDate\"")
+    @Column(name="creationDate")
     @Temporal(TemporalType.DATE)
     private Date creationDate;
 
-    @Column(name="\"invoiceDate\"")
+    @Column(name="invoiceDate")
     @Temporal(TemporalType.DATE)
     private Date invoiceDate;
 
     @Size(max = 50)
-    @Column(length = 50, name="\"franchiseNumber\"")
+    @Column(length = 50, name="franchiseNumber")
     private String franchiseNumber;
 
     public Integer getInvoiceYear() {

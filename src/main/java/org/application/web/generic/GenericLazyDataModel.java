@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.application.domain.BaseEntity;
+import org.application.domain.security.BaseEntity;
 import org.application.service.BaseService;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;

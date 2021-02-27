@@ -10,7 +10,7 @@ import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.application.domain.BaseEntity;
+import org.application.domain.security.BaseEntity;
 import org.application.service.BaseService;
 
 @Named

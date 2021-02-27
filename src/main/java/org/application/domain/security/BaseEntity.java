@@ -1,4 +1,4 @@
-package org.application.domain;
+package org.application.domain.security;
 
 import java.io.Serializable;
 

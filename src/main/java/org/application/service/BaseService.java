@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.application.domain.BaseEntity;
+import org.application.domain.security.BaseEntity;
 import org.primefaces.model.SortOrder;
 
 public class BaseService<T extends BaseEntity> {

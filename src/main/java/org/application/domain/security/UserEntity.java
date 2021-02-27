@@ -20,7 +20,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-import org.application.domain.BaseEntity;
 
 @Data
 @Entity(name="User")

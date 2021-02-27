@@ -9,8 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.application.domain.BaseEntity;
 
 @Data
 @Entity
